@@ -11,5 +11,6 @@ urlpatterns = [
     path('logout', do_logout),
     path('delete/<int:id>', delete),
     path('log_2', login_1),
-    path('short', short),
+    path('email_2', email_check),
+    path('login_p', login_p),
 ]

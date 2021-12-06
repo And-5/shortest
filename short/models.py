@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 
 
 class Link(models.Model):
+    id = models.BigAutoField(primary_key=True)
     link = models.URLField(max_length=1000)
     shortlink = models.URLField(max_length=100)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
@@ -14,3 +15,4 @@ class Link(models.Model):
     class Meta:
         verbose_name = 'Ссылка'
         verbose_name_plural = 'Ссылки'
+        ordering = ['-id']

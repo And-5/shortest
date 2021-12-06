@@ -10,5 +10,5 @@ class LinkForm(ModelForm):
             'link': Textarea(attrs={
                 'placeholder': 'Вставте ссылку',
                 'class' : 'link_owerflow'
-            })
-        }
+                })
+            }

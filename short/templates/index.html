@@ -3,60 +3,82 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <script src="/static/js/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="/static/css/main.css">
-    <title>Title</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="/static/js/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/css/index.css">
+    <title>{% block header %}Главная{% endblock %}</title>
 </head>
 <body>
-
-<header class="login_background_color">
-    <div class="container login_form">
+<header class="header">
+    <div>
         {% if not request.user.is_authenticated %}
-        <form method="post" action="login_users">
-            <div class="input">
-                <input type="text" placeholder="Enter username" name="username" id="nam5">
-                <input type="password" placeholder="Enter Password" name="password" id="pas5">
-                <input type="submit" value="Войти" id="inter5">
-                <a href="registration" role="button">Регистрация</a>
-            </div>
+        <div class="btn_head">
+            <a href="login_p" role="button" class="btn btn-primary">Войти</a>
+            <a href="registration" role="button" class="btn btn-warning">Регистрация</a>
+        </div>
         {% else %}
         <div class="logout">
             <p class="user_name">{{ request.user.username }}</p>
             <form action="logout">
-                <button>Выйти</button>
+                <button class="btn btn-danger btn_exit">Выйти</button>
             </form>
-{#            <a class=" " href="logout" role="button">Выйти</a>#}
         </div>
         {% endif %}
-        </form>
     </div>
 </header>
-<br>
 
+<div>
+    {% if request.user.is_authenticated %}
+        <div>
+            <div class="form_send">
+                <form method="post" action="index" class="form_form">
+                    {% csrf_token %}
+                <div class="message_error">
+                    {% if link_error %}
+                        <p>Ссылка уже есть в списке</p>
+                    {% endif %}
+                    <p name="lin" class="form_link">{{ form.link }}</p>
+                </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary btn_short ">Сократить</button>
+                    </div>
+                </form>
+            </div>
 
-{% if request.user.is_authenticated %}
-    <form method="post" action="index">
-{#        {% csrf_token %}#}
-        {{ form.link }}
-        <button type="submit" id="short">Сократить</button>
-    </form>
-    <table>
-    {% if links %}
-            <tr><th>Полная ссылка</th><th>Короткая ссылка</th>
-        {% for l in links %}
-            <tr>
-                <td style="max-width: 700px; word-wrap: break-word" >{{ l.link }}</td>
-                <td>{{ l.shortlink }}</td>
-                <td data-label="Amount"><a class="" href="delete/{{ l.id }}"><svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-  <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-</svg></a></td>
-            </tr>
-        {% endfor %}
+            <div>
+                <table class="table table-dark table-striped">
+                    {% if links %}
+                        <thead>
+                            <tr style="text-align: center">
+                                <th scope="col">Полная ссылка</th>
+                                <th scope="col">Короткая ссылка</th>
+                                <th scope="col">Действие</th>
+                            </tr>
+                        </thead>
+                    <tbody>
+                    {% for l in links %}
+                        <tr>
+                            <td style="max-width: 600px; word-wrap: break-word">{{ l.link }}</td>
+                            <td style="text-align: center">{{ l.shortlink }}
+                            <td style="text-align: center">
+                                <a href="delete/{{ l.id }}"><svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                </svg></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    {% else %}
+                        <p>Список пуст</p>
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     {% else %}
-        <p>Список пуст</p>
+        <div class="img"> </div>
     {% endif %}
-    </table>
-{% endif %}
+</div>
 </body>
 </html>

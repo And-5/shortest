@@ -9,16 +9,16 @@ $(document).ready(function() {
                 }
             }
         )
-    });
-    $('#short').click(function (){
+    })
+    $('#email1').blur(function (){
         $.post(
-        'short',
-            {'aaa': $('#log1').val()},
+        'email_2',
+            {'bbb': $('#email1').val()},
             function (response) {
                 if (response.exists == 'y' ) {
-                    alert('Такая запись уде есть')
+                    alert('Такой email уже зарегистрирован')
                 }
             }
         )
     })
-});
+})

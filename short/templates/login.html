@@ -1,0 +1,30 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="/static/js/main.js"></script>
+    <link rel="stylesheet" href="{% static "css/registration.css" %}">
+    <title>Вход</title>
+</head>
+<body>
+    <div class="login-page">
+        <div class="form">
+            <form class="login-form" method="post" action="login_users">
+                {% csrf_token %}
+                <input type="text" placeholder="login" name="username" id="nam5"/>
+                        {% if username_error %}
+                        <p style="margin: 0 0 5px 0; color: #fff ">Такого пользователя нет</p>
+                        {% endif %}
+                <input type="password" placeholder="password" name="password" id="pas5"/>
+                        {% if username_error %}
+                            <p style="margin: 0 0 5px 0; color: #fff ">Пароль неверный</p>
+                        {% endif %}
+                <button>login</button>
+                <p class="message">Не зарегистрированы? <a href="registration">Зарегистрироваться</a></p>
+                <a class="message" href="index">На главную</a>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
