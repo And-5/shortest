@@ -1,5 +1,6 @@
-from django.forms import ModelForm, URLInput,Textarea
+from django.forms import ModelForm, Textarea
 from .models import Link
+
 
 class LinkForm(ModelForm):
     class Meta:
@@ -9,6 +10,6 @@ class LinkForm(ModelForm):
         widgets = {
             'link': Textarea(attrs={
                 'placeholder': 'Вставте ссылку',
-                'class' : 'link_owerflow'
-                })
-            }
+                'class': 'link_owerflow'
+            })
+        }

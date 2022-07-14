@@ -3,8 +3,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" >
-        <script src="/static/js/jquery-3.3.1.min.js"></script>
-        <script src="/static/js/main.js"></script>
         <link type="text/css" rel="stylesheet" href="{% static "css/registration.css" %}" />
         <link type="text/css" rel="stylesheet" href="{% static "css/index.css" %}" />
     <title>Регистрация</title>
@@ -18,11 +16,11 @@
                         <p style="margin: 0 0 5px 0;  color: #fff">Такой пользователь есть</p>
                     {% endif %}
                 <input type="password" placeholder="password" name="password" id="pas1" required/>
-                <input type="text" placeholder="email address" name="email" id="email1" required/>
+                <input type="email" placeholder="email address" name="email" id="email1" required/>
                     {% if email_error %}
-                        <p style="margin: 0 0 5px 0 ">Такой email зарегистрирован</p>
+                        <p style="margin: 0 0 5px 0; color: #fff ">Такой email зарегистрирован</p>
                     {% endif %}
-                <button>create</button>
+                <button>Зарегистрироваться</button>
                 <p class="message">Уже зарегистрированы? <a href="login_p">Войти</a></p>
                 <a class="message" href="index">На главную</a>
             </form>
@@ -30,6 +28,3 @@
     </div>
 </body>
 </html>
-
-
-
